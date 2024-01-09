@@ -12,7 +12,13 @@
         input {
             padding: 8px;
             margin-bottom: 10px;
+            border:none;
+			outline:none;
         }
+        input:hover {
+ 		background: white;
+		}
+
         table {
             border-collapse: collapse;
             width: 100%;
@@ -21,32 +27,33 @@
             border: 1px solid #ddd;
             padding: 8px;
             text-align: left;
+            
         }
+		tr:nth-child(even) {
+    	background-color: #f9f9f9; /* Light gray background for even rows */
+}
+
+		tr:nth-child(odd) {
+    	background-color: #ffffff; /* White background for odd rows */
+}
         th {
-            background-color: #f2f2f2;
+            background-color: black;
+            color:white;
         }
-        .highlight {
-            background-color: yellow;
-        }
-         .even-row {
-            background-color: #f9f9f9; /* Light gray background for even rows */
-        }
-        .odd-row {
-            background-color: #ffffff; /* White background for odd rows */
-        }
+
     </style>
 </head>
 <body>
 
     <h2>Irregular Verbs Search</h2>
     
-    <label for="searchInput">Search for a verb:</label>
-    <input type="text" id="searchInput" oninput="searchVerbs()" placeholder="Type a verb...">
+   
+    <input type="text" id="searchInput" oninput="searchVerbs()" placeholder="search hier...">
 
     <table id="verbsTable">
         <thead>
             <tr>
-                <th>Verb</th>
+                <th>Verbs</th>
                 <th>Simple Past</th>
                 <th>Past Participle</th>
                 <th>Translation</th>
