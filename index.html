@@ -28,6 +28,12 @@
         .highlight {
             background-color: yellow;
         }
+         .even-row {
+            background-color: #f9f9f9; /* Light gray background for even rows */
+        }
+        .odd-row {
+            background-color: #ffffff; /* White background for odd rows */
+        }
     </style>
 </head>
 <body>
@@ -149,9 +155,13 @@
         };
 
         // Populate the table initially
-        var tableBody = document.getElementById("verbsBody");
+      var tableBody = document.getElementById("verbsBody");
         for (var verb in irregularVerbs) {
             var row = tableBody.insertRow();
+
+            // Add a class to alternate row colors
+            row.classList.add(tableBody.rows.length % 2 === 0 ? "even-row" : "odd-row");
+
             
             // Create cells for "Verb", "Simple Past", "Past Participle", and "Translation"
             var verbCell = row.insertCell(0);
