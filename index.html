@@ -159,9 +159,6 @@
         for (var verb in irregularVerbs) {
             var row = tableBody.insertRow();
 
-            // Add a class to alternate row colors
-            row.classList.add(tableBody.rows.length % 2 === 0 ? "even-row" : "odd-row");
-
             
             // Create cells for "Verb", "Simple Past", "Past Participle", and "Translation"
             var verbCell = row.insertCell(0);
