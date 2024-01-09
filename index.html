@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Irregular Verbs Search</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        input {
+            padding: 8px;
+            margin-bottom: 10px;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .highlight {
+            background-color: yellow;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Irregular Verbs Search</h2>
+    
+    <label for="searchInput">Search for a verb:</label>
+    <input type="text" id="searchInput" oninput="searchVerbs()" placeholder="Type a verb...">
+
+    <table id="verbsTable">
+        <thead>
+            <tr>
+                <th>Verb</th>
+                <th>Simple Past</th>
+                <th>Past Participle</th>
+                <th>Translation</th>
+            </tr>
+        </thead>
+        <tbody id="verbsBody">
+            <!-- Populate the table with irregular verbs data -->
+            <!-- Use the provided 'irregular_verbs' dictionary -->
+            <!-- You can add more rows if needed -->
+            <!-- For simplicity, the translation is left empty for now -->
+        </tbody>
+    </table>
+
+    <script>
+        var irregularVerbs = {
+               'be': ['was/were', 'been', 'sein'],
+    'beat': ['beat', 'beaten', 'schlagen'],
+    'become': ['became', 'become', 'werden'],
+    'begin': ['began', 'begun', 'anfangen'],
+    'bite': ['bit', 'bitten', 'beißen'],
+    'break': ['broke', 'broken', 'brechen'],
+    'bring': ['brought', 'brought', 'bringen'],
+    'build': ['built', 'built', 'bauen'],
+    'buy': ['bought', 'bought', 'kaufen'],
+    'can': ['could', '', 'können'],
+    'catch': ['caught', 'caught', 'fangen'],
+    'choose': ['chose', 'chosen', 'wählen'],
+    'come': ['came', 'come', 'kommen'],
+    'cost': ['cost', 'cost', 'kosten'],
+    'cut': ['cut', 'cut', 'schneiden'],
+    'do': ['did', 'done', 'tun'],
+    'draw': ['drew', 'drawn', 'zeichnen'],
+    'drink': ['drank', 'drunk', 'trinken'],
+    'drive': ['drove', 'driven', 'fahren'],
+    'eat': ['ate', 'eaten', 'essen'],
+    'fall': ['fell', 'fallen', 'fallen'],
+    'feel': ['felt', 'felt', 'fühlen'],
+    'fight': ['fought', 'fought', 'kämpfen'],
+    'find': ['found', 'found', 'finden'],
+    'fly': ['flew', 'flown', 'fliegen'],
+    'forbid': ['forbade', 'forbidden', 'verbieten'],
+    'forget': ['forgot', 'forgotten', 'vergessen'],
+    'freeze': ['froze', 'frozen', 'frieren'],
+    'get': ['got', 'got', 'bekommen'],
+    'give': ['gave', 'given', 'geben'],
+    'go': ['went', 'gone', 'gehen'],
+    'grow': ['grew', 'grown', 'wachsen'],
+    'hang': ['hung', 'hung', 'hängen'],
+    'have': ['had', 'had', 'haben'],
+    'hear': ['heard', 'heard', 'hören'],
+    'hide': ['hid', 'hidden', 'verstecken'],
+    'hit': ['hit', 'hit', 'schlagen'],
+    'hold': ['held', 'held', 'halten'],
+    'hurt': ['hurt', 'hurt', 'wehtun'],
+    'keep': ['kept', 'kept', 'aufbewahren'],
+    'know': ['knew', 'known', 'wissen'],
+    'lead': ['led', 'led', 'führen'],
+    'leave': ['left', 'left', 'verlassen'],
+    'lend': ['lent', 'lent', 'verleihen'],
+    'let': ['let', 'let', 'lassen'],
+    'lie': ['lay', 'lain', 'liegen'],
+    'lose': ['lost', 'lost', 'verlieren'],
+    'make': ['made', 'made', 'machen'],
+    'mean': ['meant', 'meant', 'bedeuten'],
+    'meet': ['met', 'met', 'treffen'],
+    'pay': ['paid', 'paid', 'bezahlen'],
+    'put': ['put', 'put', 'legen'],
+    'read': ['read', 'read', 'lesen'],
+    'ride': ['rode', 'ridden', 'reiten'],
+    'ring': ['rang', 'rung', 'klingeln'],
+    'rise': ['rose', 'risen', 'steigen'],
+    'run': ['ran', 'run', 'laufen'],
+    'say': ['said', 'said', 'sagen'],
+    'see': ['saw', 'seen', 'sehen'],
+    'sell': ['sold', 'sold', 'verkaufen'],
+    'send': ['sent', 'sent', 'senden'],
+    'set': ['set', 'set', 'setzen'],
+    'shoot': ['shot', 'shot', 'schießen'],
+    'show': ['showed', 'shown', 'zeigen'],
+    'shrink': ['shrank', 'shrunk', 'schrumpfen'],
+'shut': ['shut', 'shut', 'schließen'],
+'sing': ['sang', 'sung', 'singen'],
+'sink': ['sank', 'sunk', 'sinken'],
+'sit': ['sat', 'sat', 'sitzen'],
+'sleep': ['slept', 'slept', 'schlafen'],
+'speak': ['spoke', 'spoken', 'sprechen'],
+'spend': ['spent', 'spent', 'ausgeben', 'verbringen'],
+'stand': ['stood', 'stood', 'stehen'],
+'steal': ['stole', 'stolen', 'stehlen'],
+'swim': ['swam', 'swum', 'schwimmen'],
+'take': ['took', 'taken', 'nehmen'],
+'teach': ['taught', 'taught', 'unterrichten'],
+'tear': ['tore', 'torn', 'zerreißen'],
+'tell': ['told', 'told', 'sagen', 'erzählen'],
+'think': ['thought', 'thought', 'denken'],
+'throw': ['threw', 'thrown', 'werfen'],
+'undercut': ['undercut', 'undercut', 'unterbieten'],
+'understand': ['understood', 'understood', 'verstehen'],
+'unwind': ['unwound', 'unwound', 'sich entspannen'],
+'wake': ['woke', 'woken', 'aufwachen'],
+'wear': ['wore', 'worn', 'tragen'],
+'win': ['won', 'won', 'gewinnen'],
+'write': ['wrote', 'written', 'schreiben']
+    
+            // ... (rest of the irregular verbs)
+        };
+
+        // Populate the table initially
+        var tableBody = document.getElementById("verbsBody");
+        for (var verb in irregularVerbs) {
+            var row = tableBody.insertRow();
+            
+            // Create cells for "Verb", "Simple Past", "Past Participle", and "Translation"
+            var verbCell = row.insertCell(0);
+            var pastCell = row.insertCell(1);
+            var participleCell = row.insertCell(2);
+            var translationCell = row.insertCell(3);
+
+            // Set the content of the cells
+            verbCell.textContent = verb;
+            pastCell.textContent = irregularVerbs[verb][0];
+            participleCell.textContent = irregularVerbs[verb][1];
+            translationCell.textContent = ''; // Leave translation empty for now
+        }
+
+function searchVerbs() {
+    var input, filter, table, tbody, tr, verbCell, pastCell, participleCell, i, txtValue;
+    input = document.getElementById("searchInput");
+    filter = input.value.toLowerCase();
+    table = document.getElementById("verbsTable");
+    tbody = document.getElementById("verbsBody");
+
+    // Clear previous search results
+    while (tbody.firstChild) {
+        tbody.removeChild(tbody.firstChild);
+    }
+
+    for (var verb in irregularVerbs) {
+        var values = irregularVerbs[verb];
+        var verbMatch = verb.toLowerCase().includes(filter);
+        var pastMatch = values[0].toLowerCase().includes(filter);
+        var participleMatch = values[1].toLowerCase().includes(filter);
+
+        // تحقق من وجود النص المدخل في أي جزء من الفعل، الماضي البسيط أو التصريف الثالث
+        if (verbMatch || pastMatch || participleMatch) {
+            var row = tbody.insertRow();
+            verbCell = row.insertCell(0);
+            pastCell = row.insertCell(1);
+            participleCell = row.insertCell(2);
+            translationCell = row.insertCell(3);
+
+            verbCell.textContent = verb;
+            pastCell.textContent = values[0];
+            participleCell.textContent = values[1];
+            translationCell.textContent = values[2];
+
+            // فقط تمييز الخلايا التي تحتوي على النص المدخل
+            if (verbMatch) highlightText(verbCell, filter);
+            if (pastMatch) highlightText(pastCell, filter);
+            if (participleMatch) highlightText(participleCell, filter);
+        }
+    }
+}
+
+function highlightText(cell, filter) {
+    var txtValue = cell.textContent || cell.innerText;
+    var lowerCaseText = txtValue.toLowerCase();
+    var startIndex = lowerCaseText.indexOf(filter);
+
+    if (startIndex > -1) {
+        var endIndex = startIndex + filter.length;
+        var highlightedText = txtValue.substring(0, startIndex) +
+                              '<span class="highlight">' + txtValue.substring(startIndex, endIndex) + '</span>' +
+                              txtValue.substring(endIndex);
+        cell.innerHTML = highlightedText;
+    }
+}
+
+
+
+    </script>
+
+</body>
+</html>
